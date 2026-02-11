@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>// ERROR_404 // FILE_NOT_FOUND</title>
+    <style>
+        /* ESTILOS BASE HACKER */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ff0000;
+            font-family: 'Courier New', monospace;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* FONDO ERROR */
+        .error-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background:
+                    radial-gradient(circle at 20% 30%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 70%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+                    repeating-linear-gradient(
+                            45deg,
+                            transparent,
+                            transparent 10px,
+                            rgba(255, 0, 0, 0.05) 10px,
+                            rgba(255, 0, 0, 0.05) 20px
+                    );
+            animation: errorPulse 4s infinite alternate;
+        }
+
+        @keyframes errorPulse {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+
+        /* CONTENEDOR ERROR */
+        .error-container {
+            max-width: 700px;
+            padding: 50px;
+            background: rgba(20, 0, 0, 0.9);
+            border: 3px solid #ff0000;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            box-shadow:
+                    0 0 60px rgba(255, 0, 0, 0.5),
+                    0 0 100px rgba(255, 0, 0, 0.3),
+                    inset 0 0 30px rgba(255, 0, 0, 0.2);
+            animation: errorGlitch 5s infinite, fadeIn 1s ease-out;
+            overflow: hidden;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes errorGlitch {
+            0%, 94%, 96%, 98%, 100% {
+                transform: translate(0);
+                border-color: #ff0000;
+                box-shadow:
+                        0 0 60px rgba(255, 0, 0, 0.5),
+                        0 0 100px rgba(255, 0, 0, 0.3),
+                        inset 0 0 30px rgba(255, 0, 0, 0.2);
+            }
+            95% {
+                transform: translate(-5px, 3px);
+                border-color: #0000ff;
+                box-shadow:
+                        0 0 60px rgba(0, 0, 255, 0.5),
+                        0 0 100px rgba(0, 0, 255, 0.3),
+                        inset 0 0 30px rgba(0, 0, 255, 0.2);
+            }
+            97% {
+                transform: translate(5px, -3px);
+                border-color: #ffff00;
+                box-shadow:
+                        0 0 60px rgba(255, 255, 0, 0.5),
+                        0 0 100px rgba(255, 255, 0, 0.3),
+                        inset 0 0 30px rgba(255, 255, 0, 0.2);
+            }
+            99% {
+                transform: translate(-3px, -3px);
+                border-color: #00ff00;
+                box-shadow:
+                        0 0 60px rgba(0, 255, 0, 0.5),
+                        0 0 100px rgba(0, 255, 0, 0.3),
+                        inset 0 0 30px rgba(0, 255, 0, 0.2);
+            }
+        }
+
+        .error-container::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg,
+            transparent,
+            rgba(255, 0, 0, 0.1),
+            transparent);
+            animation: errorScan 3s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes errorScan {
+            0% { transform: translateY(-100%) rotate(45deg); }
+            100% { transform: translateY(100%) rotate(45deg); }
+        }
+
+        /* CÓDIGO ERROR */
+        .error-code {
+            font-size: 8rem;
+            font-weight: bold;
+            color: #ff0000;
+            text-shadow:
+                    0 0 20px #ff0000,
+                    0 0 40px #ff0000,
+                    0 0 80px #ff0000;
+            margin: 0;
+            letter-spacing: 10px;
+            animation: codePulse 2s infinite alternate;
+        }
+
+        @keyframes codePulse {
+            0% {
+                text-shadow:
+                        0 0 20px #ff0000,
+                        0 0 40px #ff0000,
+                        0 0 80px #ff0000;
+                transform: scale(1);
+            }
+            100% {
+                text-shadow:
+                        0 0 30px #ff0000,
+                        0 0 60px #ff0000,
+                        0 0 120px #ff0000;
+                transform: scale(1.05);
+            }
+        }
+
+        /* TÍTULO ERROR */
+        .error-title {
+            font-size: 2.5rem;
+            color: #ff5555;
+            margin: 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        /* MENSAJE ERROR */
+        .error-message {
+            color: #ff8888;
+            font-size: 1.2rem;
+            margin: 25px 0;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* TERMINAL DIAGNÓSTICO */
+        .diagnostic-terminal {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #ff0000;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: left;
+            font-family: 'Consolas', monospace;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .diagnostic-terminal::after {
+            content: "█";
+            position: absolute;
+            right: 15px;
+            bottom: 10px;
+            animation: blink 1s infinite;
+            color: #ff0000;
+            font-weight: bold;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .diagnostic-line {
+            margin: 10px 0;
+            color: #ff5555;
+            animation: typing 0.5s steps(40, end);
+        }
+
+        .diagnostic-line::before {
+            content: "ERROR@SYSTEM:~$ ";
+            color: #ff0000;
+            font-weight: bold;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        /* BOTONES */
+        .error-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .error-button {
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #330000, #550000);
+            color: #ff5555;
+            border: 1px solid #ff0000;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Courier New', monospace;
+        }
+
+        .error-button:hover {
+            background: linear-gradient(45deg, #550000, #770000);
+            color: #ffffff;
+            border-color: #ff3333;
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+            transform: translateY(-3px);
+        }
+
+        .error-button.primary {
+            background: linear-gradient(45deg, #003300, #005500);
+            color: #00ff00;
+            border-color: #00ff00;
+        }
+
+        .error-button.primary:hover {
+            background: linear-gradient(45deg, #005500, #007700);
+            border-color: #00ff88;
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.6);
+        }
+
+        .error-button::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 0, 0, 0.3),
+            transparent);
+            transition: left 0.5s ease;
+        }
+
+        .error-button:hover::after {
+            left: 100%;
+        }
+
+        /* FOOTER */
+        .error-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 0, 0, 0.3);
+            color: #ff4444;
+            font-size: 0.9rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .error-container {
+                margin: 20px;
+                padding: 30px;
+            }
+
+            .error-code {
+                font-size: 5rem;
+            }
+
+            .error-title {
+                font-size: 1.8rem;
+            }
+
+            .error-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .error-button {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #110000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #ff0000, #880000);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, #ff3333, #aa0000);
+        }
+    </style>
+</head>
+<body>
+<!-- FONDO ERROR -->
+<div class="error-bg"></div>
+
+<!-- CONTENEDOR ERROR -->
+<div class="error-container">
+    <!-- CÓDIGO ERROR -->
+    <h1 class="error-code">404</h1>
+
+    <!-- TÍTULO -->
+    <h2 class="error-title">// FILE NOT FOUND //</h2>
+
+    <!-- MENSAJE -->
+    <div class="error-message">
+        <p>RESOURCE ACCESS DENIED. REQUESTED FILE IS NOT PRESENT IN THE SYSTEM.</p>
+        <p>POSSIBLE CAUSES: INVALID PATH, MISSING PERMISSIONS, OR DELETED RESOURCE.</p>
+    </div>
+
+    <!-- TERMINAL DIAGNÓSTICO -->
+    <div class="diagnostic-terminal">
+        <div class="diagnostic-line">ERROR: HTTP 404 - Not Found</div>
+        <div class="diagnostic-line">Timestamp: <span id="errorTime"></span></div>
+        <div class="diagnostic-line">Requested URL: <span id="requestedUrl"></span></div>
+        <div class="diagnostic-line">Server Response: File does not exist</div>
+        <div class="diagnostic-line">Suggestion: Verify the URL or check permissions</div>
+        <div class="diagnostic-line">System Status: Active and responsive</div>
+    </div>
+
+    <!-- BOTONES -->
+    <div class="error-buttons">
+        <a href="/" class="error-button primary">RETURN TO MAINFRAME</a>
+        <a href="/test.html" class="error-button">TEST SYSTEM</a>
+        <button onclick="location.reload()" class="error-button">RELOAD PAGE</button>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="error-footer">
+        <p>// SERVER: Java HTTP Multi-threaded // STATUS: OPERATIONAL //</p>
+    </div>
+</div>
+
+<!-- SCRIPT PARA EFECTOS -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Actualizar timestamp
+        const errorTime = document.getElementById('errorTime');
+        const now = new Date();
+        errorTime.textContent = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+
+        // Obtener URL solicitada
+        const requestedUrl = document.getElementById('requestedUrl');
+        const path = window.location.pathname;
+        requestedUrl.textContent = path || '/unknown';
+
+        // Efecto de terminal
+        const diagnosticLines = [
+            "Running system diagnostics...",
+            "Checking file system...",
+            "Verifying path integrity...",
+            "Scanning directory structure...",
+            "No matching files found.",
+            "Generating error report...",
+            "Diagnostic complete."
+        ];
+
+        const terminal = document.querySelector('.diagnostic-terminal');
+        let lineIndex = 0;
+
+        function addDiagnosticLine() {
+            if (lineIndex < diagnosticLines.length) {
+                const newLine = document.createElement('div');
+                newLine.className = 'diagnostic-line';
+                newLine.textContent = diagnosticLines[lineIndex];
+                terminal.appendChild(newLine);
+
+                // Scroll al final
+                terminal.scrollTop = terminal.scrollHeight;
+
+                lineIndex++;
+
+                // Programar siguiente línea
+                if (lineIndex < diagnosticLines.length) {
+                    setTimeout(addDiagnosticLine, 700);
+                }
+            }
+        }
+
+        // Iniciar secuencia después de 1 segundo
+        setTimeout(addDiagnosticLine, 1000);
+
+        // Efecto sonido al hacer clic (opcional)
+        document.querySelectorAll('.error-button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Efecto visual
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+
+                // Sonido de error
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+
+                    oscillator.frequency.value = 300;
+                    oscillator.type = 'sawtooth';
+
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.2);
+                } catch (err) {
+                    // Si no hay soporte de audio, continuar sin sonido
+                }
+            });
+        });
+
+        // Efecto de parpadeo aleatorio en el fondo
+        setInterval(() => {
+            const errorBg = document.querySelector('.error-bg');
+            const intensity = Math.random() * 0.4 + 0.3;
+            errorBg.style.opacity = intensity;
+        }, 2000);
+    });
+</script>
+</body>
+</html>

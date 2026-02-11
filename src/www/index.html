@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>// S Y S T E M _ H A C K //</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- FONDO MATRIX -->
+<div class="matrix-bg"></div>
+
+<div class="main-container">
+    <!-- HEADER CON TÍTULO -->
+    <header class="header">
+        <h1 class="title">// SYSTEM_HACK //</h1>
+        <p class="subtitle">ACCESS: GRANTED | USER: ROOT | STATUS: ONLINE</p>
+    </header>
+
+    <!-- PANEL DE ESTADO DEL SISTEMA -->
+    <div class="status-container">
+        <h2 class="status-title">SYSTEM STATUS</h2>
+        <div class="status-grid">
+            <div class="status-item">
+                <span class="status-label">SERVER STATUS</span>
+                <span class="status-value" id="serverStatus">ONLINE</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">CONNECTIONS</span>
+                <span class="status-value" id="connections">24 ACTIVE</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">BANDWIDTH</span>
+                <span class="status-value" id="bandwidth">1.2 Gb/s</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">SECURITY LEVEL</span>
+                <span class="status-value" id="security">MAXIMUM</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- GALERÍA DE IMÁGENES HACKER -->
+    <section class="gallery-section">
+        <h2 class="section-title">MEDIA FILES</h2>
+
+        <div class="gallery-grid">
+            <!-- TARJETA 1 - GIF HACKER -->
+            <div class="hack-card">
+                <div class="image-container">
+                    <img src="matrix_code.gif" alt="Matrix Code Animation" class="hack-image">
+                    <div class="image-overlay">
+                        <span class="file-type">[ANIMATED GIF]</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">matrix_code.gif</h3>
+                    <p class="card-desc">You exposed your machine now 😈.</p>
+                </div>
+            </div>
+
+            <!-- TARJETA 2 - IMAGEN HACKER -->
+            <div class="hack-card">
+                <div class="image-container">
+                    <img src="cyber_wall.jpg" alt="Cyberpunk City" class="hack-image">
+                    <div class="image-overlay">
+                        <span class="file-type">[SECURITY FEED]</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">cyber_wall.jpg</h3>
+                    <p class="card-desc">please don't hack me Domi 😭 .</p>
+                </div>
+            </div>
+
+            <!-- TARJETA 3 - ACCESO SECRETO -->
+            <div class="hack-card secret-card">
+                <a href="/DomiHacked.html" class="secret-link">
+                    <div class="image-container secret-container">
+                        <div class="secret-content">
+                            <span class="secret-tag">[RESTRICTED]</span>
+                            <h3 class="secret-title">don't enter</h3>
+                            <p class="secret-desc">
+                                spyware 🪲.<br>
+                                Authorized users only.
+                            </p>
+                            <span class="secret-action">CLICK TO ACCESS ▸</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+        </div>
+    </section>
+
+    <!-- CONSOLA TERMINAL INTERACTIVA -->
+    <div class="terminal">
+        <div class="terminal-header">
+            <span>root@system_hack:~</span>
+            <span>TERMINAL v3.14</span>
+        </div>
+        <div class="terminal-body" id="terminalOutput">
+            <div class="terminal-line">Initializing system...</div>
+            <div class="terminal-line">Bypassing firewall...</div>
+            <div class="terminal-line">Access granted to mainframe</div>
+            <div class="terminal-line">Downloading media files...</div>
+            <div class="terminal-line" id="currentLine">$ _</div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>// SYSTEM_HACK v2.0 // ENCRYPTED CONNECTION // LAST UPDATE: <span id="currentDate"></span> //</p>
+        <p class="warning-text">
+            WARNING: Unauthorized access is prohibited. All activities are monitored.
+        </p>
+    </footer>
+</div>
+
+<!-- SCRIPT EXTERNO -->
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>// TEST_PAGE // SYSTEM_VERIFICATION</title>
+    <style>
+        /* ESTILOS BASE HACKER */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* FONDO MATRIX */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+            background:
+                    repeating-linear-gradient(
+                            0deg,
+                            transparent,
+                            transparent 2px,
+                            rgba(0, 255, 0, 0.1) 2px,
+                            rgba(0, 255, 0, 0.1) 4px
+                    ),
+                    repeating-linear-gradient(
+                            90deg,
+                            transparent,
+                            transparent 2px,
+                            rgba(0, 255, 0, 0.05) 2px,
+                            rgba(0, 255, 0, 0.05) 4px
+                    );
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+        .test-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 40px;
+            background: rgba(0, 20, 0, 0.9);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            position: relative;
+            z-index: 1;
+            box-shadow:
+                    0 0 40px rgba(0, 255, 0, 0.4),
+                    inset 0 0 20px rgba(0, 255, 0, 0.1);
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* HEADER */
+        .test-header {
+            text-align: center;
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #00ff00;
+            position: relative;
+        }
+
+        .test-header::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, #00ff00, transparent);
+            animation: scanLine 3s linear infinite;
+        }
+
+        @keyframes scanLine {
+            0% { left: 0; }
+            100% { left: 100%; }
+        }
+
+        .test-title {
+            font-size: 2.8rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #00ff00;
+            text-shadow:
+                    0 0 10px #00ff00,
+                    0 0 20px #00ff00;
+            margin-bottom: 15px;
+            animation: glitch 5s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 92%, 94%, 96%, 100% { transform: translate(0); }
+            93% { transform: translate(-2px, 2px); }
+            95% { transform: translate(2px, -2px); }
+            97% { transform: translate(-2px, -2px); }
+        }
+
+        .test-subtitle {
+            color: #00cc00;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        /* TEST BOXES */
+        .test-box {
+            background: rgba(0, 40, 0, 0.6);
+            border: 1px solid #00ff00;
+            border-left: 4px solid #00ff00;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .test-box:hover {
+            transform: translateX(5px);
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.3);
+            border-left-color: #00ff88;
+        }
+
+        .test-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(0, 255, 0, 0.1),
+                    transparent
+            );
+            transform: translateX(-100%);
+        }
+
+        .test-box:hover::before {
+            animation: slideRight 1s ease-out;
+        }
+
+        @keyframes slideRight {
+            to { transform: translateX(100%); }
+        }
+
+        .test-box h3 {
+            color: #00ff88;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .test-box h3::before {
+            content: "✓";
+            color: #00ff00;
+            font-weight: bold;
+            font-size: 1.2rem;
+            animation: pulseCheck 2s infinite;
+        }
+
+        @keyframes pulseCheck {
+            0%, 100% { opacity: 1; text-shadow: 0 0 10px #00ff00; }
+            50% { opacity: 0.7; text-shadow: 0 0 5px #00ff00; }
+        }
+
+        .test-box p {
+            color: #cccccc;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .test-box .success {
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .test-box .warning {
+            color: #ffff00;
+            font-weight: bold;
+        }
+
+        /* BOTÓN VOLVER */
+        .back-link-container {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(0, 255, 0, 0.3);
+        }
+
+        .back-link {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #001100, #003300);
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-link:hover {
+            background: linear-gradient(45deg, #003300, #005500);
+            color: #ffffff;
+            border-color: #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            transform: scale(1.05);
+        }
+
+        .back-link::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+            transparent,
+            rgba(0, 255, 0, 0.3),
+            transparent);
+            transition: left 0.5s ease;
+        }
+
+        .back-link:hover::after {
+            left: 100%;
+        }
+
+        /* TERMINAL STATUS */
+        .terminal-status {
+            background: rgba(0, 20, 0, 0.9);
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 30px 0;
+            font-family: 'Consolas', monospace;
+            position: relative;
+        }
+
+        .terminal-status::after {
+            content: "█";
+            position: absolute;
+            right: 15px;
+            bottom: 10px;
+            animation: blink 1s infinite;
+            color: #00ff00;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .terminal-line {
+            margin: 8px 0;
+            color: #00ff88;
+        }
+
+        .terminal-line::before {
+            content: "test@system:~$ ";
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .test-container {
+                margin: 20px;
+                padding: 25px;
+            }
+
+            .test-title {
+                font-size: 2rem;
+            }
+
+            .test-box {
+                padding: 20px;
+            }
+        }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #001100;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #00ff00, #008800);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, #00ff88, #00aa00);
+        }
+    </style>
+</head>
+<body>
+<!-- FONDO MATRIX -->
+<div class="matrix-bg"></div>
+
+<!-- CONTENEDOR PRINCIPAL -->
+<div class="test-container">
+    <!-- HEADER -->
+    <header class="test-header">
+        <h1 class="test-title">// SYSTEM_TEST //</h1>
+        <p class="test-subtitle">VERIFICATION_PROTOCOL v2.0</p>
+    </header>
+
+    <!-- TERMINAL STATUS -->
+    <div class="terminal-status">
+        <div class="terminal-line">Starting verification sequence...</div>
+        <div class="terminal-line">Checking HTTP protocols...</div>
+        <div class="terminal-line">Validating server responses...</div>
+        <div class="terminal-line">All systems: OPERATIONAL</div>
+    </div>
+
+    <!-- TEST BOX 1 -->
+    <div class="test-box">
+        <h3>CONNECTION VERIFICATION</h3>
+        <p><span class="success">✓ HTTP Connection:</span> ESTABLISHED</p>
+        <p><span class="success">✓ Protocol Version:</span> HTTP/1.0</p>
+        <p><span class="success">✓ Server Port:</span> 8080 (Custom)</p>
+        <p><span class="success">✓ Multi-threaded:</span> ACTIVE</p>
+    </div>
+
+    <!-- TEST BOX 2 -->
+    <div class="test-box">
+        <h3>CONTENT VALIDATION</h3>
+        <p><span class="success">✓ HTML Files:</span> SERVING CORRECTLY</p>
+        <p><span class="success">✓ Images (JPG/GIF):</span> SUPPORTED</p>
+        <p><span class="success">✓ MIME Types:</span> PROPERLY CONFIGURED</p>
+        <p><span class="success">✓ Character Encoding:</span> UTF-8</p>
+    </div>
+
+    <!-- TEST BOX 3 -->
+    <div class="test-box">
+        <h3>ERROR HANDLING</h3>
+        <p><span class="success">✓ 404 Errors:</span> CUSTOM PAGE ACTIVE</p>
+        <p><span class="success">✓ Invalid Methods:</span> PROPERLY REJECTED</p>
+        <p><span class="success">✓ Path Traversal:</span> SECURITY BLOCKED</p>
+        <p><span class="warning">⚠ Connection Timeout:</span> 30 SECONDS</p>
+    </div>
+
+    <!-- TEST BOX 4 -->
+    <div class="test-box">
+        <h3>PERFORMANCE METRICS</h3>
+        <p><span class="success">✓ Response Time:</span> &lt; 100ms</p>
+        <p><span class="success">✓ Concurrent Connections:</span> UNLIMITED</p>
+        <p><span class="success">✓ Memory Usage:</span> OPTIMAL</p>
+        <p><span class="success">✓ Uptime:</span> STABLE</p>
+    </div>
+
+    <!-- BOTÓN VOLVER -->
+    <div class="back-link-container">
+        <a href="/" class="back-link">
+            ← RETURN TO MAINFRAME
+        </a>
+    </div>
+</div>
+
+<!-- SCRIPT PARA EFECTOS -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Efecto de escritura en terminal
+        const terminalLines = [
+            "Loading test modules...",
+            "Initializing verification protocols...",
+            "Checking file permissions...",
+            "Validating MIME types...",
+            "Testing error responses...",
+            "All checks completed successfully.",
+            "System ready for production."
+        ];
+
+        const terminalStatus = document.querySelector('.terminal-status');
+        let lineIndex = 0;
+
+        function addTerminalLine() {
+            if (lineIndex < terminalLines.length) {
+                const newLine = document.createElement('div');
+                newLine.className = 'terminal-line';
+                newLine.textContent = terminalLines[lineIndex];
+                newLine.style.animation = 'none';
+
+                setTimeout(() => {
+                    newLine.style.animation = 'typing 0.5s steps(40, end)';
+                }, 10);
+
+                terminalStatus.appendChild(newLine);
+                lineIndex++;
+
+                // Scroll al final
+                terminalStatus.scrollTop = terminalStatus.scrollHeight;
+
+                // Programar siguiente línea
+                if (lineIndex < terminalLines.length) {
+                    setTimeout(addTerminalLine, 600);
+                }
+            }
+        }
+
+        // Iniciar secuencia después de 1 segundo
+        setTimeout(addTerminalLine, 1000);
+
+        // Efecto hover en test boxes
+        document.querySelectorAll('.test-box').forEach(box => {
+            box.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(10px)';
+            });
+
+            box.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+            });
+        });
+
+        // Efecto sonido al hacer clic en enlace (opcional)
+        const backLink = document.querySelector('.back-link');
+        backLink.addEventListener('click', function(e) {
+            // Efecto visual
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1.05)';
+            }, 100);
+
+            // Sonido simple
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                oscillator.frequency.value = 800;
+                oscillator.type = 'sine';
+
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.1);
+            } catch (err) {
+                // Si no hay soporte de audio, continuar sin sonido
+            }
+        });
+    });
+</script>
+</body>
+</html>
